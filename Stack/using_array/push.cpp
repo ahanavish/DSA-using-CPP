@@ -15,7 +15,7 @@ class stack
         top = -1;
         s = new int [size]; 
     }
-    ~stack()
+    ~stack()        //destructor
     {
         delete []s;
         s = 0;
@@ -46,6 +46,6 @@ int main()
         s1.push(neww);
     }
 
-    cout<<"stack(from the end): ";
+    cout<<"stack(from the top): ";
     s1.display();
 }
