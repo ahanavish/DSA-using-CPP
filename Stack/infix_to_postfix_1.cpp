@@ -1,6 +1,8 @@
 //operands are not pushed into stack
 #include <iostream>
 #include <string.h>
+#include <ctime>
+#include <iomanip>
 using namespace std;
 
 class stack
@@ -30,7 +32,6 @@ class stack
         int i=0, j=0;
         char *post = new char[size+1];
         while(in[i] != '\0')
-        {
             if(ifopnd(in[i]))
                 post[j++] = in[i++];
             else
@@ -40,11 +41,10 @@ class stack
                 else
                     post[j++] = pop();
             }
-        }
+            
         while(!isempty())
-        {
             post[j++] = pop();
-        }
+
         post[j] = '\0';
         return post;
     }
@@ -57,10 +57,7 @@ class stack
             return 1;
     }
 
-    int stacktop()
-    {
-        return sta[top];
-    }
+    int stacktop()  {   return sta[top];    }
 
     int pre(char s)
     {
@@ -71,15 +68,9 @@ class stack
         return 0;
     }
 
-    void push(char s)
-    {
-        sta[++top] = s;
-    }
+    void push(char s)   {   sta[++top] = s; }
     
-    int pop()
-    {
-        return sta[top--];
-    }
+    int pop()   {   return sta[top--];    }
 
     int isempty()
     {
@@ -90,13 +81,25 @@ class stack
     }
 };
 
+//a+b*c-d/e
 int main()
 {
-    char infix[] = "a+b*c-d/e";
+    time_t begin, end;
+    time(&begin);
+
+    cout<<"enter infix expression: ";
+    char infix[10];
+    gets(infix);
     cout<<"infix: "<<infix<<endl;
     stack st(infix);
 
-    char *postfix = st.convert();  
-
+    char *postfix = st.convert();
     cout<<"postfix: "<<postfix;
+
+    time(&end);
+    double time = double(end-begin);
+    cout<<endl<<"-> Time taken: "<<fixed<<time<<setprecision(5);
+    cout<<"sec"<<endl;
+    return 0;
+
 }
